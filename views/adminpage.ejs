@@ -117,7 +117,13 @@
         <th>ชื่อ</th>
         <th>สกุล</th>
         <th>ที่อยู่</th>
+        <th>ตำบล/แขวง</th>
+        <th>อำเภอ/เขต</th>
+        <th>จังหวัด</th>
+        <th>รหัสไปรษณีย์</th>
+        <th>เบอร์โทรศัพท์(ใส่หรือไม่ก็ได้)</th>
         <th>ทีมที่เลือก</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -127,6 +133,11 @@
           <td><%= participant.first_name %></td>
           <td><%= participant.last_name %></td>
           <td><%= participant.address %></td>
+          <td><%= participant.district %></td>
+          <td><%= participant.city %></td>
+          <td><%= participant.province %></td>
+          <td><%= participant.postal_code %></td>
+          <td><%= participant.phone_number ?? "" %></td>
           <td><%= participant.team_prediction %></td>
         </tr>
       <% }) %>
