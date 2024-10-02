@@ -2,12 +2,16 @@ import express from 'express';
 import session from 'express-session';
 import bcrypt from 'bcryptjs';
 import pool from './db.js';
+import dotenv from 'dotenv';
+
+
+dotenv.config();
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
-    secret: 'mySuperSecretKey123',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
 }));
@@ -42,23 +46,16 @@ app.get('/admin/login', (req, res) => {
     res.render('admin');
 });
 
-
-
 app.post('/admin/login', async (req, res) => {
     const { username, password } = req.body;
 
-    const adminUsername = 'admin';
-
-    const adminPasswordHash = '$2a$10$VZd3v6PbeoKdjqDsWmQ1fubB4j2kwZn6sC4fDBqXNp8.9RAiaMnJ2';
-
-    if (username === adminUsername && await bcrypt.compare(password, adminPasswordHash)) {
+    if (username === process.env.ADMIN_USERNAME && await bcrypt.compare(password, process.env.ADMIN_PASSWORD_HASH)) {
         req.session.admin = true;
         res.redirect('/admin');
     } else {
         res.send('รหัสผ่านไม่ถูกต้อง');
     }
 });
-
 
 app.get('/admin', async (req, res) => {
     console.log(req.session);
