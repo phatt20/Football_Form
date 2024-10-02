@@ -1,0 +1,12 @@
+CREATE TABLE Participants (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    address TEXT NOT NULL,
+    district VARCHAR(100) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    province VARCHAR(100) NOT NULL,
+    postal_code VARCHAR(10) NOT NULL,
+    phone_number VARCHAR(100) NULL,
+    team_prediction VARCHAR(50) NOT NULL CHECK (team_prediction IN ('เรือ', 'ช้าง', 'ม้า', 'โคน'))
+);
