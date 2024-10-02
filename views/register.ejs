@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ลงทะเบียนชิงโชค</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    #admin-login {
+      position: absolute; 
+      top: 20px; 
+      right: 20px; 
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    #app {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body id="app">
+  <a id="admin-login" href="/admin/login">Login for Admin</a>
+  <h1>ลงทะเบียนทายผลทีมแชมป์</h1>
+  <form action="/register" method="POST">
+    <label>ชื่อ: <input type="text" name="first_name" required placeholder="ชื่อ"></label>
+    <label>สกุล: <input type="text" name="last_name" required placeholder="นามสกุล"></label>
+    <label>ที่อยู่: <input type="text" name="address" required placeholder="ที่อยู่"></label>
+    <label>ตำบล/แขวง: <input type="text" name="district" required placeholder="ตำบล/เเขวง"></label>
+    <label>อำเภอ/เขต: <input type="text" name="city" required placeholder="อำเภอ/เขต"></label>
+    <label>จังหวัด: <input type="text" name="province" required placeholder="จังหวัด"></label>
+    <label>รหัสไปรษณีย์: <input type="text" name="postal_code" required placeholder="รหัสไปรษณีย์"></label>
+    <label>เบอร์โทรศัพท์(ใส่หรือไม่ก็ได้): <input type="text" name="phone_number" placeholder="เบอร์โทรศัพท์"></label>
+    <label>ทีมที่ได้แชมป์:
+      <select name="team_prediction" required>
+        <option value="เรือ">เรือ</option>
+        <option value="ช้าง">ช้าง</option>
+        <option value="ม้า">ม้า</option>
+        <option value="โคน">โคน</option>
+      </select>
+    </label>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    var wasCorrect = "<%= typeof locals !== 'undefined' && locals.wasCorrect === true ? 'true' : 'false' %>";
+    if (wasCorrect === "true") {
+      alert('ลงทะเบียนสำเร็จ');
+      setTimeout(function() {
+        window.location.href = '/'; // เปลี่ยนเส้นทางไปยังหน้าแรกหลังจากแจ้งเตือน
+      }, 2000); // หน่วงเวลา 2 วินาที
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ข้อมูลผู้ลงทะเบียน</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    select, button {
+      padding: 10px;
+      margin-left: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #4CAF50; /* Green */
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049; /* Darker green on hover */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2; /* Zebra stripes */
+    }
+
+    tr:hover {
+      background-color: #ddd; /* Highlight row on hover */
+    }
+
+    /* ปรับให้ปุ่ม logout อยู่ตรงกลาง */
+    .logout-container {
+      display: flex;
+      justify-content: center; /* จัดให้อยู่กลางแนวนอน */
+      margin-top: 20px;
+    }
+
+    a {
+      display: inline-block; /* เปลี่ยนเป็น inline-block */
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      background-color: #f44336; /* Red */
+      padding: 10px;
+      border-radius: 5px;
+      width: 150px; /* กำหนดความกว้างของปุ่ม */
+    }
+
+    a:hover {
+      background-color: #c62828; /* Darker red on hover */
+    }
+  </style>
+</head>
+<body>
+  <h1>ข้อมูลผู้ลงทะเบียน</h1>
+
+  <form action="/admin" method="GET">
+    <label>กรองตามทีม:
+      <select name="team">
+        <option value="">ทั้งหมด</option>
+        <option value="เรือ" <%= teamFilter === 'เรือ' ? 'selected' : '' %>>เรือ</option>
+        <option value="ช้าง" <%= teamFilter === 'ช้าง' ? 'selected' : '' %>>ช้าง</option>
+        <option value="ม้า" <%= teamFilter === 'ม้า' ? 'selected' : '' %>>ม้า</option>
+        <option value="โคน" <%= teamFilter === 'โคน' ? 'selected' : '' %>>โคน</option>
+      </select>
+      <button type="submit">กรอง</button>
+    </label>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>ชื่อ</th>
+        <th>สกุล</th>
+        <th>ที่อยู่</th>
+        <th>ทีมที่เลือก</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% participants.forEach(participant => { %>
+        <tr>
+          <td><%= participant.id %></td>
+          <td><%= participant.first_name %></td>
+          <td><%= participant.last_name %></td>
+          <td><%= participant.address %></td>
+          <td><%= participant.team_prediction %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <!-- คอนเทนเนอร์สำหรับปุ่ม logout -->
+  <div class="logout-container">
+    <a href="/admin/logout">logout</a>
+  </div>
+</body>
+</html>
